@@ -46,7 +46,7 @@ export default function RootLayout({
 
           {/* Footer */}
           <footer className="bg-gray-100 py-6 text-center text-sm text-gray-600">
-            © {new Date().getFullYear()} Mon Blog — Tous droits réservés
+            © {new Date().getFullYear()} BlogMedical BARADINE — Tous droits réservés
           </footer>
         </div>
       </body>

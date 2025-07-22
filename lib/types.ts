@@ -1,6 +1,7 @@
 // lib/types.ts
 
 export interface Article {
+    [x: string]: string | number | Date
     id: number
     titre: string
     slug: string
