@@ -21,7 +21,7 @@ export default function AdminCommentairesPage() {
   useEffect(() => {
     const fetchCommentaires = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:8000/api/commentaires/')
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/commentaires/`)
         setCommentaires(res.data)
       } catch (error) {
         console.error('Erreur chargement commentaires', error)
@@ -38,7 +38,7 @@ export default function AdminCommentairesPage() {
     if (!confirm) return
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/commentaires/${id}/`)
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/commentaires/${id}/`)
       setCommentaires(prev => prev.filter(comment => comment.id !== id))
     } catch (error) {
       console.error('Erreur suppression', error)

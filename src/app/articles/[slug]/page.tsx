@@ -92,7 +92,7 @@ export default function ArticleDetailPage() {
       {typeof article.image === "string" && article.image.startsWith("/media") && (
         <div className="mb-12 rounded-xl overflow-hidden shadow-lg">
           <Image
-            src={`http://127.0.0.1:8000${article.image}`}
+            src={article.image}
             alt={article.titre}
             width={800}
             height={450}

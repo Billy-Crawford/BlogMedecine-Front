@@ -1,18 +1,24 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
 
 instance.interceptors.request.use(
   (config) => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('access') : null
+    const token =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('access')
+        : null
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
+
     return config
   },
   (error) => Promise.reject(error)
 )
 
 export default instance
+

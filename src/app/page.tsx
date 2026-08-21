@@ -41,11 +41,12 @@ export default async function Home() {
           </p>
 
           <p>
-            Fondé en 2025 par une équipe de de jeunes
-            passiones, acteurs du changement et l'evolution, BARADINE's Medical Blog se veut 
-            etre comme une référence dans la vulgarisation médicale de qualité. Nous croyons 
-            fermement que chaqueindividu devrait avoir accès à une information claire pour prendre
-            des décisions éclairées concernant sa santé.
+            Fondé en 2025 par une équipe de de jeunes passiones, acteurs du
+            changement et l'evolution, BARADINE's Medical Blog se veut etre
+            comme une référence dans la vulgarisation médicale de qualité. Nous
+            croyons fermement que chaqueindividu devrait avoir accès à une
+            information claire pour prendre des décisions éclairées concernant
+            sa santé.
           </p>
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">
@@ -259,14 +260,16 @@ export default async function Home() {
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    {new Date(article.date_publication).toLocaleDateString(
-                      "fr-FR",
-                      {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      }
-                    )}
+                    {article.date_publication
+                      ? new Date(article.date_publication).toLocaleDateString(
+                          "fr-FR",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          },
+                        )
+                      : "Date non disponible"}
                   </div>
                 </div>
               </li>
