@@ -1,6 +1,11 @@
+// src/app/page.tsx
+
 /* eslint-disable react/no-unescaped-entities */
+
 import { getArticles } from "../../lib/api";
 import type { Article } from "../../lib/types";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const articles = await getArticles();
