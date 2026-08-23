@@ -1,3 +1,5 @@
+// src/app/admin/articles/nouveau/page.tsx
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
@@ -78,64 +80,109 @@ export default function CreateArticlePage() {
 
   return (
     <RequireAuth>
-      <div className="max-w-2xl mx-auto py-10 px-4">
-        <h1 className="text-2xl font-bold mb-6">✍️ Nouvel article</h1>
+      <div className="max-w-3xl mx-auto py-8">
+        <div className="mb-8">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+            Nouvel article
+          </h1>
+          <p className="text-zinc-500 text-sm mt-1">
+            Rédigez et publiez un nouveau contenu pour votre blog médical.
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            value={titre}
-            onChange={(e) => setTitre(e.target.value)}
-            placeholder="Titre de l'article"
-            className="w-full border border-gray-300 px-4 py-2 rounded"
-            required
-          />
+        <div className="bg-[#FAFAFC] border border-zinc-200/80 rounded-2xl p-6 sm:p-8 shadow-2xs">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
+                Titre de l&apos;article
+              </label>
+              <input
+                type="text"
+                value={titre}
+                onChange={(e) => setTitre(e.target.value)}
+                placeholder="Ex: Les avancées de la cardiologie en 2026"
+                className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition-all"
+                required
+              />
+            </div>
 
-          <select
-            value={categorieId ?? ""}
-            onChange={(e) => setCategorieId(Number(e.target.value))}
-            className="w-full border border-gray-300 px-4 py-2 rounded"
-            required
-          >
-            <option value="">Choisir une catégorie</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.nom}
-              </option>
-            ))}
-          </select>
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
+                Catégorie
+              </label>
+              <select
+                value={categorieId ?? ""}
+                onChange={(e) => setCategorieId(Number(e.target.value))}
+                className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition-all"
+                required
+              >
+                <option value="" disabled>Choisir une catégorie</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.nom}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <textarea
-            value={contenu}
-            onChange={(e) => setContenu(e.target.value)}
-            placeholder="Contenu de l'article"
-            rows={6}
-            className="w-full border border-gray-300 px-4 py-2 rounded"
-            required
-          />
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
+                Contenu de l&apos;article
+              </label>
+              <textarea
+                value={contenu}
+                onChange={(e) => setContenu(e.target.value)}
+                placeholder="Rédigez le texte de votre article..."
+                rows={8}
+                className="w-full bg-white border border-zinc-200 rounded-xl p-4 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition-all leading-relaxed"
+                required
+              />
+            </div>
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                setImage(e.target.files[0]);
-              }
-            }}
-            className="w-full border border-gray-300 px-4 py-2 rounded"
-            required
-          />
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
+                Image d&apos;illustration
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setImage(e.target.files[0]);
+                  }
+                }}
+                className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 text-sm file:mr-4 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-900 file:text-white hover:file:bg-zinc-800 transition-all cursor-pointer"
+                required
+              />
+            </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 text-xs font-medium px-4 py-3 rounded-xl flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                {error}
+              </div>
+            )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            {loading ? "Enregistrement..." : "Créer l’article"}
-          </button>
-        </form>
+            <div className="flex items-center justify-end gap-4 pt-4 border-t border-zinc-200/80">
+              <button
+                type="button"
+                onClick={() => router.push("/admin/articles")}
+                className="text-xs font-semibold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 px-4 py-2.5 transition-colors"
+              >
+                Annuler
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-6 rounded-xl shadow-2xs hover:shadow-md transition-all duration-200 cursor-pointer disabled:opacity-50"
+              >
+                {loading ? "Enregistrement..." : "Créer l’article"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </RequireAuth>
   );
