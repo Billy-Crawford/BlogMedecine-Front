@@ -1,3 +1,5 @@
+// src/app/admin/categories/page.tsx
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -48,53 +50,98 @@ export default function AdminCategoriesPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto py-10 px-4">
-      <h1 className="text-2xl font-bold mb-6">Gestion des catégories</h1>
+    <div className="max-w-3xl mx-auto py-8">
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+          Gestion des catégories
+        </h1>
+        <p className="text-zinc-500 text-sm mt-1">
+          Organisez les thématiques et rubriques de vos articles.
+        </p>
+      </div>
 
       {/* Formulaire de création */}
-      <div className="flex gap-2 mb-6">
-        <input
-          type="text"
-          placeholder="Nom de la catégorie"
-          value={newNom}
-          onChange={(e) => setNewNom(e.target.value)}
-          className="flex-grow border border-gray-300 rounded px-4 py-2"
-        />
-        <button
-          onClick={handleCreate}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Ajouter
-        </button>
+      <div className="bg-[#FAFAFC] border border-zinc-200/80 rounded-2xl p-6 shadow-2xs mb-8">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 mb-2">
+          Ajouter une nouvelle catégorie
+        </label>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            placeholder="Ex: Cardiologie, Pédiatrie..."
+            value={newNom}
+            onChange={(e) => setNewNom(e.target.value)}
+            className="flex-grow bg-white border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition-all"
+          />
+          <button
+            onClick={handleCreate}
+            className="bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-6 rounded-xl shadow-2xs hover:shadow-md transition-all duration-200 cursor-pointer shrink-0"
+          >
+            Ajouter
+          </button>
+        </div>
       </div>
 
       {/* Liste des catégories */}
-      <ul className="space-y-3">
-        {categories.map((cat) => (
-          <li key={cat.id} className="flex items-center justify-between border-b pb-2">
-            {editingId === cat.id ? (
-              <div className="flex gap-2 w-full">
-                <input
-                  type="text"
-                  value={editingNom}
-                  onChange={(e) => setEditingNom(e.target.value)}
-                  className="flex-grow border px-2 py-1 rounded"
-                />
-                <button onClick={handleUpdate} className="text-green-600">✅</button>
-                <button onClick={() => setEditingId(null)} className="text-gray-500">❌</button>
-              </div>
-            ) : (
-              <>
-                <span>{cat.nom}</span>
-                <div className="flex gap-2">
-                  <button onClick={() => { setEditingId(cat.id); setEditingNom(cat.nom) }} className="text-blue-500">Modifier</button>
-                  <button onClick={() => handleDelete(cat.id)} className="text-red-500">Supprimer</button>
-                </div>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div className="bg-white border border-zinc-200/80 rounded-2xl shadow-2xs overflow-hidden">
+        <div className="px-6 py-4 bg-[#FAFAFC] border-b border-zinc-200 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+          Liste des catégories ({categories.length})
+        </div>
+
+        {categories.length === 0 ? (
+          <div className="p-12 text-center text-zinc-500 text-sm">
+            Aucune catégorie enregistrée pour le moment.
+          </div>
+        ) : (
+          <ul className="divide-y divide-zinc-100">
+            {categories.map((cat) => (
+              <li key={cat.id} className="px-6 py-4 flex items-center justify-between hover:bg-zinc-50/60 transition-colors">
+                {editingId === cat.id ? (
+                  <div className="flex items-center gap-3 w-full">
+                    <input
+                      type="text"
+                      value={editingNom}
+                      onChange={(e) => setEditingNom(e.target.value)}
+                      className="flex-grow bg-white border border-zinc-200 rounded-xl px-4 py-2 text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900"
+                    />
+                    <button 
+                      onClick={handleUpdate} 
+                      className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      Enregistrer
+                    </button>
+                    <button 
+                      onClick={() => setEditingId(null)} 
+                      className="bg-zinc-100 text-zinc-600 hover:bg-zinc-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <span className="font-semibold text-zinc-900 text-sm">{cat.nom}</span>
+                    <div className="flex items-center gap-4">
+                      <button 
+                        onClick={() => { setEditingId(cat.id); setEditingNom(cat.nom) }} 
+                        className="font-medium text-zinc-900 hover:underline text-xs uppercase tracking-wider cursor-pointer"
+                      >
+                        Modifier
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(cat.id)} 
+                        className="font-medium text-red-600 hover:underline text-xs uppercase tracking-wider cursor-pointer"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }
+
