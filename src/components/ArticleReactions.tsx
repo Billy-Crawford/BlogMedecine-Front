@@ -80,6 +80,7 @@ export default function ArticleReactions({ articleId }: Props) {
 
   useEffect(() => {
     fetchReactions();
+    fetchMyReaction();
   }, [articleId]);
 
   /**
