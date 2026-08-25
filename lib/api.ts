@@ -11,14 +11,20 @@ export const getArticles = async () => {
 }
 
 export const getArticleBySlug = async (slug: string) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/articles/${slug}/`)
-      return response.data
-    } catch (error) {
-        console.error("Erreur lors du chargement de l'article :", error)
-      return null
-    }
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/articles/${slug}/`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors du chargement de l'article :", error);
+    return null;
   }
+};
   
 // 🟢 Obtenir toutes les catégories
 export const getCategories = async () => {
