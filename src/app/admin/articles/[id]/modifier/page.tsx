@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import axios from "../../../../../lib/axios";
+import axios from "@/../lib/axios";
 import RequireAuth from "@/components/RequireAuth";
 
 type Categorie = {
