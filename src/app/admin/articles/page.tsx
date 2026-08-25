@@ -12,8 +12,11 @@ type Article = {
   titre: string;
   slug: string;
   statut: string;
-  date_publication: string;
-  categorie: { nom: string };
+  date_publication: string | null;
+  categorie: {
+    id: number;
+    nom: string;
+  } | null;
 };
 
 export default function AdminArticlesPage() {
@@ -40,10 +43,18 @@ export default function AdminArticlesPage() {
     if (!confirm) return;
 
     try {
-      await axios.delete(`articles/${id}/`);
+      await axios.delete(`admin/articles/${id}/`);
+
       setArticles((prev) => prev.filter((article) => article.id !== id));
-    } catch (error) {
-      console.error("Erreur suppression", error);
+    } catch (error: any) {
+      console.error(
+        "Erreur suppression article :",
+        error.response?.data || error,
+      );
+
+      alert(
+        error.response?.data?.detail || "Impossible de supprimer l'article.",
+      );
     }
   };
 
