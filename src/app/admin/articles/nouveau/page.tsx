@@ -50,17 +50,16 @@ export default function CreateArticlePage() {
       const formData = new FormData();
       formData.append("titre", titre);
       formData.append("contenu", contenu);
-      formData.append("categorie", String(categorieId));
-      formData.append("statut", "publie"); // ⚠️ Confirmer dans le backend
+      formData.append("categorie_id", String(categorieId));
+      formData.append("statut", "publie");
       if (image) {
         formData.append("image", image);
       }
 
-      const token = localStorage.getItem("access");
+      // const token = localStorage.getItem("access");
 
       await axios.post("admin/articles/", formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
@@ -116,7 +115,9 @@ export default function CreateArticlePage() {
                 className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition-all"
                 required
               >
-                <option value="" disabled>Choisir une catégorie</option>
+                <option value="" disabled>
+                  Choisir une catégorie
+                </option>
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.nom}
@@ -158,8 +159,19 @@ export default function CreateArticlePage() {
 
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-xs font-medium px-4 py-3 rounded-xl flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 shrink-0 text-red-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
                 </svg>
                 {error}
               </div>
