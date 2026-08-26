@@ -5,8 +5,12 @@ import axios from './axios'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-export const getArticles = async () => {
-  const response = await axios.get(`${API_BASE_URL}/articles/`)
+export const getArticles = async (categorie?: string) => {
+  const url = categorie
+    ? `${API_BASE_URL}/articles/?categorie=${categorie}`
+    : `${API_BASE_URL}/articles/`
+
+  const response = await axios.get(url)
   return response.data
 }
 
@@ -26,25 +30,25 @@ export const getArticleBySlug = async (slug: string) => {
   }
 };
   
-// 🟢 Obtenir toutes les catégories
+//  Obtenir toutes les catégories
 export const getCategories = async () => {
   const response = await axios.get(`${API_BASE_URL}/categories/`)
   return response.data
 }
 
-// ➕ Créer une catégorie
+//  Créer une catégorie
 export const createCategory = async (nom: string) => {
   const response = await axios.post(`${API_BASE_URL}/categories/`, { nom })
   return response.data
 }
 
-// ✏️ Modifier une catégorie
+//  Modifier une catégorie
 export const updateCategory = async (id: number, nom: string) => {
   const response = await axios.put(`${API_BASE_URL}/categories/${id}/`, { nom })
   return response.data
 }
 
-// ❌ Supprimer une catégorie
+//  Supprimer une catégorie
 export const deleteCategory = async (id: number) => {
   await axios.delete(`${API_BASE_URL}/categories/${id}/`)
 }
