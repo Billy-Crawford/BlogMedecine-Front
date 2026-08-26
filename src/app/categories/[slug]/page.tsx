@@ -57,16 +57,16 @@ export default function CategoryArticlesPage() {
       <div className="mb-10">
         <Link
           href="/categories"
-          className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors"
+          className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
         >
           ← Toutes les catégories
         </Link>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-950 mt-5">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-950 dark:text-white mt-5">
           {categoryName}
         </h1>
 
-        <p className="mt-2 text-zinc-500">
+        <p className="mt-2 text-zinc-500 dark:text-zinc-400">
           Articles de cette catégorie
         </p>
       </div>
@@ -74,9 +74,9 @@ export default function CategoryArticlesPage() {
       {/* Chargement */}
       {loading && (
         <div className="flex items-center gap-3 py-10">
-          <div className="w-5 h-5 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-zinc-900 dark:border-zinc-200 border-t-transparent rounded-full animate-spin" />
 
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Chargement des articles...
           </p>
         </div>
@@ -84,15 +84,15 @@ export default function CategoryArticlesPage() {
 
       {/* Erreur */}
       {!loading && error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3">
+        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-xl px-4 py-3">
           {error}
         </div>
       )}
 
       {/* Aucun article */}
       {!loading && !error && articles.length === 0 && (
-        <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-10 text-center">
-          <p className="text-zinc-600">
+        <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl p-10 text-center">
+          <p className="text-zinc-600 dark:text-zinc-400">
             Aucun article disponible dans cette catégorie.
           </p>
         </div>
@@ -105,11 +105,11 @@ export default function CategoryArticlesPage() {
             <Link
               key={article.id}
               href={`/articles/${article.slug}`}
-              className="group bg-white border border-zinc-200 rounded-2xl overflow-hidden hover:shadow-md transition-all"
+              className="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl overflow-hidden hover:shadow-md dark:hover:shadow-black/30 hover:border-zinc-300 dark:hover:border-zinc-600 transition-all"
             >
               {/* Image */}
               {article.image && (
-                <div className="aspect-video overflow-hidden bg-zinc-100">
+                <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <img
                     src={article.image}
                     alt={article.titre}
@@ -120,15 +120,15 @@ export default function CategoryArticlesPage() {
 
               {/* Contenu */}
               <div className="p-5">
-                <h2 className="text-xl font-bold text-zinc-900 group-hover:text-zinc-700">
+                <h2 className="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-zinc-700 dark:group-hover:text-zinc-300">
                   {article.titre}
                 </h2>
 
-                <p className="text-sm text-zinc-500 mt-2">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
                   {article.categorie.nom}
                 </p>
 
-                <span className="inline-block mt-4 text-sm font-medium text-zinc-900">
+                <span className="inline-block mt-4 text-sm font-medium text-zinc-900 dark:text-white group-hover:text-zinc-700 dark:group-hover:text-zinc-300">
                   Lire l'article →
                 </span>
               </div>
@@ -139,4 +139,3 @@ export default function CategoryArticlesPage() {
     </section>
   );
 }
-
