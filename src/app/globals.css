@@ -30,27 +30,47 @@
   --border: #3f3f46;
 }
 
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
 }
 
 /* =========================================================
    BODY
    ========================================================= */
 
-html,
 body {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 
   transition:
     background-color 0.3s ease,
@@ -58,12 +78,8 @@ body {
 }
 
 /* =========================================================
-   ÉLÉMENTS GÉNÉRAUX
+   SELECTION
    ========================================================= */
-
-* {
-  box-sizing: border-box;
-}
 
 ::selection {
   background: #18181b;
@@ -74,3 +90,4 @@ body {
   background: #f4f4f5;
   color: #18181b;
 }
+

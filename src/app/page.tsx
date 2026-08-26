@@ -408,7 +408,6 @@ export default async function Home() {
                 d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
               />
             </svg>
-
             Articles récents
           </h2>
         </div>
@@ -467,8 +466,9 @@ export default async function Home() {
                   rounded-2xl
                   overflow-hidden
                   shadow-xs
+                  dark:shadow-none
                   hover:shadow-xl
-                  dark:hover:shadow-black/30
+                  dark:hover:shadow-lg
                   transition-all
                   duration-300
                   flex
@@ -539,7 +539,16 @@ export default async function Home() {
                       {article.titre}
                     </h3>
 
-                    <p className="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                    <p
+                      className="
+                        text-zinc-600
+                        dark:text-zinc-400
+                        text-sm
+                        leading-relaxed
+                        mb-6
+                        line-clamp-3
+                      "
+                    >
                       {article.contenu}
                     </p>
                   </div>
@@ -574,7 +583,6 @@ export default async function Home() {
                       "
                     >
                       Lire la suite
-
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-3.5 w-3.5 ml-1.5 transform group-hover:translate-x-1 transition-transform"
@@ -608,13 +616,14 @@ export default async function Home() {
                       </svg>
 
                       {article.date_publication
-                        ? new Date(
-                            article.date_publication,
-                          ).toLocaleDateString("fr-FR", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })
+                        ? new Date(article.date_publication).toLocaleDateString(
+                            "fr-FR",
+                            {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            },
+                          )
                         : "Date non disponible"}
                     </div>
                   </div>
@@ -627,4 +636,3 @@ export default async function Home() {
     </div>
   );
 }
-

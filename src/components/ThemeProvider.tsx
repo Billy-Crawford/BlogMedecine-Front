@@ -2,11 +2,11 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-export default function ThemeProvider({
-  children,
-}: {
+type Props = {
   children: React.ReactNode;
-}) {
+};
+
+export default function ThemeProvider({ children }: Props) {
   return (
     <NextThemesProvider
       attribute="class"
@@ -18,3 +18,4 @@ export default function ThemeProvider({
     </NextThemesProvider>
   );
 }
+

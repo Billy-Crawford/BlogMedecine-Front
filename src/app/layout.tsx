@@ -6,18 +6,20 @@ import Link from "next/link";
 import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Un blog moderne avec Next.js",
+  title: "RoBomed Blog",
+  description: "Blog médical RoBomed",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
@@ -39,7 +41,6 @@ export default function RootLayout({
 
             <header
               className="
-                p-4
                 border-b
                 border-zinc-200
                 dark:border-zinc-800
@@ -49,17 +50,42 @@ export default function RootLayout({
                 duration-300
               "
             >
-              <nav className="container mx-auto flex justify-between items-center">
-                <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+              <nav
+                className="
+                  container
+                  mx-auto
+                  px-4
+                  py-4
+                  flex
+                  justify-between
+                  items-center
+                "
+              >
+                <Link
+                  href="/"
+                  className="
+                    text-xl
+                    font-bold
+                    text-zinc-900
+                    dark:text-zinc-100
+                    transition-colors
+                  "
+                >
                   MedicalBlog
-                </h1>
+                </Link>
 
                 <div className="flex items-center gap-5">
                   <ul className="flex gap-4 text-sm">
                     <li>
                       <Link
                         href="/"
-                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                        className="
+                          text-zinc-700
+                          dark:text-zinc-300
+                          hover:text-zinc-950
+                          dark:hover:text-white
+                          transition-colors
+                        "
                       >
                         Accueil
                       </Link>
@@ -68,7 +94,13 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/categories"
-                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                        className="
+                          text-zinc-700
+                          dark:text-zinc-300
+                          hover:text-zinc-950
+                          dark:hover:text-white
+                          transition-colors
+                        "
                       >
                         Catégories
                       </Link>
@@ -77,7 +109,13 @@ export default function RootLayout({
                     <li>
                       <Link
                         href="/contact"
-                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                        className="
+                          text-zinc-700
+                          dark:text-zinc-300
+                          hover:text-zinc-950
+                          dark:hover:text-white
+                          transition-colors
+                        "
                       >
                         Contact
                       </Link>
@@ -91,7 +129,16 @@ export default function RootLayout({
 
             {/* ================= CONTENU ================= */}
 
-            <main className="flex-grow container mx-auto py-10 px-4">
+            <main
+              className="
+                flex-grow
+                container
+                mx-auto
+                w-full
+                py-10
+                px-4
+              "
+            >
               {children}
             </main>
 
@@ -121,3 +168,4 @@ export default function RootLayout({
     </html>
   );
 }
+
