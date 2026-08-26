@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+
 import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -34,23 +35,52 @@ export default function RootLayout({
               duration-300
             "
           >
-            {/* Navbar */}
-            <header className="p-4 shadow-md bg-white dark:bg-gray-900 transition-colors">
+            {/* ================= NAVBAR ================= */}
+
+            <header
+              className="
+                p-4
+                border-b
+                border-zinc-200
+                dark:border-zinc-800
+                bg-white
+                dark:bg-zinc-950
+                transition-colors
+                duration-300
+              "
+            >
               <nav className="container mx-auto flex justify-between items-center">
-                <h1 className="text-xl font-bold">MedicalBlog</h1>
+                <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                  MedicalBlog
+                </h1>
 
                 <div className="flex items-center gap-5">
                   <ul className="flex gap-4 text-sm">
                     <li>
-                      <Link href="/">Accueil</Link>
+                      <Link
+                        href="/"
+                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                      >
+                        Accueil
+                      </Link>
                     </li>
 
                     <li>
-                      <Link href="/categories">Catégories</Link>
+                      <Link
+                        href="/categories"
+                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                      >
+                        Catégories
+                      </Link>
                     </li>
 
                     <li>
-                      <Link href="/contact">Contact</Link>
+                      <Link
+                        href="/contact"
+                        className="text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                      >
+                        Contact
+                      </Link>
                     </li>
                   </ul>
 
@@ -59,24 +89,28 @@ export default function RootLayout({
               </nav>
             </header>
 
-            {/* Contenu principal */}
+            {/* ================= CONTENU ================= */}
+
             <main className="flex-grow container mx-auto py-10 px-4">
               {children}
             </main>
 
-            {/* Footer */}
+            {/* ================= FOOTER ================= */}
+
             <footer
               className="
-                bg-gray-100
+                bg-zinc-100
                 dark:bg-zinc-900
-                py-6
-                text-center
-                text-sm
-                text-gray-600
-                dark:text-zinc-400
                 border-t
                 border-zinc-200
                 dark:border-zinc-800
+                py-6
+                text-center
+                text-sm
+                text-zinc-600
+                dark:text-zinc-400
+                transition-colors
+                duration-300
               "
             >
               © {new Date().getFullYear()} RoBomed Blog — Tous droits réservés

@@ -12,9 +12,9 @@ export default function ThemeProvider({
       attribute="class"
       defaultTheme="light"
       enableSystem={false}
+      disableTransitionOnChange
     >
       {children}
     </NextThemesProvider>
   );
 }
-
