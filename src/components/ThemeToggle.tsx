@@ -29,6 +29,7 @@ export default function ThemeToggle() {
           text-sm
           font-medium
         "
+        aria-label="Changer de thème"
       >
         🌙 Sombre
       </button>
@@ -37,12 +38,17 @@ export default function ThemeToggle() {
 
   const isDark = resolvedTheme === "dark";
 
+  const toggleTheme = () => {
+    setTheme(isDark ? "light" : "dark");
+  };
+
   return (
     <button
       type="button"
-      onClick={() => {
-        setTheme(isDark ? "light" : "dark");
-      }}
+      onClick={toggleTheme}
+      aria-label={
+        isDark ? "Activer le thème clair" : "Activer le thème sombre"
+      }
       className="
         inline-flex
         items-center
