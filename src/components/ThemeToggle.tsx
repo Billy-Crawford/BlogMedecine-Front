@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Évite les problèmes d'hydratation avec next-themes
   if (!mounted) {
     return (
       <button
@@ -29,26 +28,21 @@ export default function ThemeToggle() {
           text-zinc-900
           text-sm
           font-medium
-          opacity-70
         "
-        aria-label="Changer de thème"
       >
         🌙 Sombre
       </button>
     );
   }
 
-  const isDark = theme === "dark";
-
-  const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark");
-  };
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
-      aria-label={isDark ? "Activer le thème clair" : "Activer le thème sombre"}
+      onClick={() => {
+        setTheme(isDark ? "light" : "dark");
+      }}
       className="
         inline-flex
         items-center
@@ -76,4 +70,3 @@ export default function ThemeToggle() {
     </button>
   );
 }
-
