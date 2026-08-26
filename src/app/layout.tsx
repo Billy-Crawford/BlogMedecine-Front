@@ -21,7 +21,19 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors">
+          <div
+            className="
+              min-h-screen
+              flex
+              flex-col
+              bg-white
+              text-zinc-900
+              dark:bg-zinc-950
+              dark:text-zinc-100
+              transition-colors
+              duration-300
+            "
+          >
             {/* Navbar */}
             <header className="p-4 shadow-md bg-white dark:bg-gray-900 transition-colors">
               <nav className="container mx-auto flex justify-between items-center">
@@ -53,10 +65,22 @@ export default function RootLayout({
             </main>
 
             {/* Footer */}
-            <footer className="bg-gray-100 dark:bg-gray-900 py-6 text-center text-sm text-gray-600 dark:text-gray-400 transition-colors">
+            <footer
+              className="
+                bg-gray-100
+                dark:bg-zinc-900
+                py-6
+                text-center
+                text-sm
+                text-gray-600
+                dark:text-zinc-400
+                border-t
+                border-zinc-200
+                dark:border-zinc-800
+              "
+            >
               © {new Date().getFullYear()} RoBomed Blog — Tous droits réservés
             </footer>
-            
           </div>
         </ThemeProvider>
       </body>
