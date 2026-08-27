@@ -37,9 +37,7 @@ export default function AdminCommentairesPage() {
   }, []);
 
   const handleDelete = async (id: number) => {
-    const confirmDelete = window.confirm(
-      "Supprimer ce commentaire ?"
-    );
+    const confirmDelete = window.confirm("Supprimer ce commentaire ?");
 
     if (!confirmDelete) return;
 
@@ -47,7 +45,7 @@ export default function AdminCommentairesPage() {
       await axios.delete(`/commentaires/${id}/`);
 
       setCommentaires((prev) =>
-        prev.filter((comment) => comment.id !== id)
+        prev.filter((comment) => comment.id !== id),
       );
     } catch (error) {
       console.error("Erreur suppression :", error);
@@ -57,29 +55,35 @@ export default function AdminCommentairesPage() {
   return (
     <RequireAuth>
       <div className="space-y-8">
+
+        {/* En-tête */}
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 dark:text-zinc-100 tracking-tight">
             Gestion des commentaires
           </h1>
 
-          <p className="text-zinc-500 text-sm mt-1">
+          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
             Modérez et supervisez les réactions des lecteurs sur vos articles.
           </p>
         </div>
 
+        {/* Chargement */}
         {loading ? (
           <div className="flex items-center gap-3 py-12">
-            <div className="w-5 h-5 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-zinc-900 dark:border-zinc-100 border-t-transparent rounded-full animate-spin" />
 
-            <p className="text-zinc-500 text-sm font-medium">
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium">
               Chargement des commentaires...
             </p>
           </div>
+
         ) : commentaires.length === 0 ? (
-          <div className="bg-[#FAFAFC] border border-zinc-200 rounded-2xl p-12 text-center">
+
+          /* Aucun commentaire */
+          <div className="bg-[#FAFAFC] dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-12 text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12 mx-auto text-zinc-400 mb-4"
+              className="h-12 w-12 mx-auto text-zinc-400 dark:text-zinc-500 mb-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -92,20 +96,27 @@ export default function AdminCommentairesPage() {
               />
             </svg>
 
-            <p className="text-zinc-900 font-semibold text-lg">
+            <p className="text-zinc-900 dark:text-zinc-100 font-semibold text-lg">
               Aucun commentaire trouvé.
             </p>
 
-            <p className="text-zinc-500 text-sm mt-1">
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
               Les réactions de vos lecteurs apparaîtront ici.
             </p>
           </div>
+
         ) : (
-          <div className="bg-white border border-zinc-200/80 rounded-2xl shadow-2xs overflow-hidden">
+
+          /* Tableau */
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-2xs overflow-hidden">
+
             <div className="overflow-x-auto">
+
               <table className="w-full text-left border-collapse">
+
+                {/* En-tête du tableau */}
                 <thead>
-                  <tr className="bg-[#FAFAFC] border-b border-zinc-200 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  <tr className="bg-[#FAFAFC] dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                     <th className="px-6 py-4">Texte</th>
                     <th className="px-6 py-4">Article</th>
                     <th className="px-6 py-4">IP</th>
@@ -114,28 +125,35 @@ export default function AdminCommentairesPage() {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-zinc-100 text-sm">
+                {/* Corps */}
+                <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800 text-sm">
+
                   {commentaires.map((comment) => (
                     <tr
                       key={comment.id}
-                      className="hover:bg-zinc-50/60 transition-colors"
+                      className="hover:bg-zinc-50/60 dark:hover:bg-zinc-800/50 transition-colors"
                     >
-                      <td className="px-6 py-4 text-zinc-900 max-w-sm leading-relaxed">
+
+                      {/* Texte */}
+                      <td className="px-6 py-4 text-zinc-900 dark:text-zinc-100 max-w-sm leading-relaxed">
                         {comment.texte}
                       </td>
 
-                      <td className="px-6 py-4 text-zinc-800 font-semibold max-w-xs truncate">
+                      {/* Article */}
+                      <td className="px-6 py-4 text-zinc-800 dark:text-zinc-200 font-semibold max-w-xs truncate">
                         {comment.article?.titre || "Article inconnu"}
                       </td>
 
-                      <td className="px-6 py-4 text-zinc-500 font-mono text-xs">
+                      {/* IP */}
+                      <td className="px-6 py-4 text-zinc-500 dark:text-zinc-400 font-mono text-xs">
                         {comment.ip}
                       </td>
 
-                      <td className="px-6 py-4 text-zinc-500 font-medium text-xs">
+                      {/* Date */}
+                      <td className="px-6 py-4 text-zinc-500 dark:text-zinc-400 font-medium text-xs">
                         {comment.date_creation
                           ? new Date(
-                              comment.date_creation
+                              comment.date_creation,
                             ).toLocaleString("fr-FR", {
                               day: "numeric",
                               month: "short",
@@ -146,18 +164,23 @@ export default function AdminCommentairesPage() {
                           : "Date inconnue"}
                       </td>
 
+                      {/* Action */}
                       <td className="px-6 py-4 text-right">
                         <button
+                          type="button"
                           onClick={() => handleDelete(comment.id)}
-                          className="font-medium text-red-600 hover:underline text-xs uppercase tracking-wider cursor-pointer"
+                          className="font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:underline text-xs uppercase tracking-wider cursor-pointer transition-colors"
                         >
                           Supprimer
                         </button>
                       </td>
+
                     </tr>
                   ))}
+
                 </tbody>
               </table>
+
             </div>
           </div>
         )}
