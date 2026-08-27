@@ -41,10 +41,7 @@ export default function AdminDashboard() {
   return (
     <AdminProtectedRoute>
       <div className="space-y-8">
-        {/* =====================================================
-            EN-TÊTE
-        ====================================================== */}
-
+        {/* En-tête */}
         <div>
           <h1
             className="
@@ -54,20 +51,26 @@ export default function AdminDashboard() {
               text-zinc-950
               dark:text-zinc-100
               tracking-tight
+              transition-colors
             "
           >
             Tableau de bord
           </h1>
 
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
+          <p
+            className="
+              text-zinc-500
+              dark:text-zinc-400
+              text-sm
+              mt-1
+              transition-colors
+            "
+          >
             Vue d&apos;ensemble de votre blog et indicateurs clés.
           </p>
         </div>
 
-        {/* =====================================================
-            CHARGEMENT
-        ====================================================== */}
-
+        {/* Chargement */}
         {loading ? (
           <div className="flex items-center gap-3 py-12">
             <div
@@ -83,15 +86,19 @@ export default function AdminDashboard() {
               "
             />
 
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium">
+            <p
+              className="
+                text-zinc-500
+                dark:text-zinc-400
+                text-sm
+                font-medium
+              "
+            >
               Chargement des statistiques...
             </p>
           </div>
         ) : error ? (
-          /* =====================================================
-             ERREUR
-          ====================================================== */
-
+          /* Erreur */
           <div
             className="
               bg-red-50
@@ -108,6 +115,7 @@ export default function AdminDashboard() {
               flex
               items-center
               gap-2
+              transition-colors
             "
           >
             <svg
@@ -120,7 +128,7 @@ export default function AdminDashboard() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={1.75}
                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
               />
             </svg>
@@ -128,15 +136,9 @@ export default function AdminDashboard() {
             {error}
           </div>
         ) : (
-          /* =====================================================
-             STATISTIQUES
-          ====================================================== */
-
+          /* Cards statistiques */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* =================================================
-                ARTICLES
-            ================================================== */}
-
+            {/* ================= ARTICLES ================= */}
             <div
               className="
                 bg-white
@@ -164,6 +166,7 @@ export default function AdminDashboard() {
                     tracking-wider
                     text-zinc-500
                     dark:text-zinc-400
+                    transition-colors
                   "
                 >
                   Articles publiés
@@ -196,7 +199,7 @@ export default function AdminDashboard() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a22 22 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
                     />
                   </svg>
                 </div>
@@ -209,16 +212,14 @@ export default function AdminDashboard() {
                   text-zinc-900
                   dark:text-zinc-100
                   tracking-tight
+                  transition-colors
                 "
               >
                 {stats.articles_publies}
               </p>
             </div>
 
-            {/* =================================================
-                COMMENTAIRES
-            ================================================== */}
-
+            {/* ================= COMMENTAIRES ================= */}
             <div
               className="
                 bg-white
@@ -246,6 +247,7 @@ export default function AdminDashboard() {
                     tracking-wider
                     text-zinc-500
                     dark:text-zinc-400
+                    transition-colors
                   "
                 >
                   Commentaires
@@ -291,16 +293,14 @@ export default function AdminDashboard() {
                   text-zinc-900
                   dark:text-zinc-100
                   tracking-tight
+                  transition-colors
                 "
               >
                 {stats.commentaires}
               </p>
             </div>
 
-            {/* =================================================
-                CATÉGORIES
-            ================================================== */}
-
+            {/* ================= CATÉGORIES ================= */}
             <div
               className="
                 bg-white
@@ -328,6 +328,7 @@ export default function AdminDashboard() {
                     tracking-wider
                     text-zinc-500
                     dark:text-zinc-400
+                    transition-colors
                   "
                 >
                   Catégories
@@ -373,6 +374,7 @@ export default function AdminDashboard() {
                   text-zinc-900
                   dark:text-zinc-100
                   tracking-tight
+                  transition-colors
                 "
               >
                 {stats.categories}
@@ -384,3 +386,4 @@ export default function AdminDashboard() {
     </AdminProtectedRoute>
   );
 }
+

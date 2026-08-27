@@ -5,7 +5,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "@/app/globals.css";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function AdminLayout({
   children,
@@ -30,14 +29,15 @@ export default function AdminLayout({
         dark:bg-zinc-950
         text-zinc-900
         dark:text-zinc-100
+        selection:bg-zinc-900
+        selection:text-white
+        dark:selection:bg-zinc-100
+        dark:selection:text-zinc-900
         transition-colors
         duration-300
       "
     >
-      {/* =====================================================
-          SIDEBAR
-      ====================================================== */}
-
+      {/* Sidebar */}
       <aside
         className="
           w-full
@@ -61,7 +61,6 @@ export default function AdminLayout({
       >
         <div className="space-y-8">
           {/* Logo / titre */}
-
           <div className="flex items-center gap-3">
             <div
               className="
@@ -91,6 +90,7 @@ export default function AdminLayout({
                 dark:text-zinc-100
                 tracking-tight
                 text-lg
+                transition-colors
               "
             >
               Admin Panel
@@ -98,7 +98,6 @@ export default function AdminLayout({
           </div>
 
           {/* Navigation */}
-
           <nav className="flex flex-col space-y-1.5">
             <Link
               href="/admin"
@@ -166,7 +165,7 @@ export default function AdminLayout({
                 transition-all
               "
             >
-              Catégories
+              Categories
             </Link>
 
             <Link
@@ -194,43 +193,38 @@ export default function AdminLayout({
           </nav>
         </div>
 
-        {/* Bas de sidebar */}
-
-        <div className="space-y-4">
-          {/* Sélecteur de thème */}
-
-          <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800">
-            <ThemeToggle />
-          </div>
-
-          {/* Retour site public */}
-
-          <div className="hidden md:block">
-            <Link
-              href="/"
-              className="
-                text-xs
-                font-medium
-                text-zinc-400
-                dark:text-zinc-500
-                hover:text-zinc-900
-                dark:hover:text-zinc-100
-                transition-colors
-                flex
-                items-center
-                gap-2
-              "
-            >
-              ← Voir le site public
-            </Link>
-          </div>
+        {/* Retour vers le site public */}
+        <div
+          className="
+            hidden
+            md:block
+            pt-6
+            border-t
+            border-zinc-100
+            dark:border-zinc-800
+          "
+        >
+          <Link
+            href="/"
+            className="
+              text-xs
+              font-medium
+              text-zinc-400
+              dark:text-zinc-500
+              hover:text-zinc-900
+              dark:hover:text-zinc-100
+              transition-colors
+              flex
+              items-center
+              gap-2
+            "
+          >
+            ← Voir le site public
+          </Link>
         </div>
       </aside>
 
-      {/* =====================================================
-          CONTENU PRINCIPAL
-      ====================================================== */}
-
+      {/* Main content */}
       <main
         className="
           flex-1
@@ -238,8 +232,6 @@ export default function AdminLayout({
           sm:p-10
           md:p-12
           overflow-y-auto
-          bg-[#FAFAFC]
-          dark:bg-zinc-950
           transition-colors
           duration-300
         "
@@ -249,4 +241,3 @@ export default function AdminLayout({
     </div>
   );
 }
-
