@@ -20,7 +20,7 @@ export default function ArticleReactions({ articleId }: Props) {
   const [dislikes, setDislikes] = useState(0);
 
   const [loading, setLoading] = useState(false);
-  const [activeReaction, setActiveReaction] = useState<
+  const [activeReaction, setActiveReaction] = useState
     "like" | "dislike" | null
   >(null);
 
@@ -162,19 +162,19 @@ export default function ArticleReactions({ articleId }: Props) {
   };
 
   return (
-    <section className="border-y border-zinc-200 py-8 mb-16">
+    <section className="border-y border-border py-8 mb-16">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
         <div>
-          <h3 className="text-lg font-bold text-zinc-900">
+          <h3 className="font-display italic text-xl text-foreground">
             Votre avis
           </h3>
 
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Cet article vous a-t-il été utile ?
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-6">
           {/* LIKE */}
           <button
             type="button"
@@ -182,23 +182,22 @@ export default function ArticleReactions({ articleId }: Props) {
             disabled={loading}
             className={`
               flex items-center gap-2
-              px-4 py-2.5
-              rounded-xl
-              border
-              text-sm font-semibold
-              transition
-              disabled:opacity-50
+              pb-1
+              border-b-2
+              font-mono text-xs uppercase tracking-[0.1em]
+              transition-colors
+              disabled:opacity-40
               disabled:cursor-not-allowed
               ${
                 activeReaction === "like"
-                  ? "bg-zinc-900 text-white border-zinc-900"
-                  : "bg-white text-zinc-700 border-zinc-300 hover:bg-zinc-50"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
               }
             `}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="w-4 h-4"
               fill={activeReaction === "like" ? "currentColor" : "none"}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -217,11 +216,9 @@ export default function ArticleReactions({ articleId }: Props) {
               />
             </svg>
 
-            <span>J'aime</span>
+            <span>J&apos;aime</span>
 
-            <span className="min-w-5 text-center">
-              {likes}
-            </span>
+            <span className="min-w-4 text-center">{likes}</span>
           </button>
 
           {/* DISLIKE */}
@@ -231,23 +228,22 @@ export default function ArticleReactions({ articleId }: Props) {
             disabled={loading}
             className={`
               flex items-center gap-2
-              px-4 py-2.5
-              rounded-xl
-              border
-              text-sm font-semibold
-              transition
-              disabled:opacity-50
+              pb-1
+              border-b-2
+              font-mono text-xs uppercase tracking-[0.1em]
+              transition-colors
+              disabled:opacity-40
               disabled:cursor-not-allowed
               ${
                 activeReaction === "dislike"
-                  ? "bg-zinc-900 text-white border-zinc-900"
-                  : "bg-white text-zinc-700 border-zinc-300 hover:bg-zinc-50"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
               }
             `}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
+              className="w-4 h-4"
               fill={activeReaction === "dislike" ? "currentColor" : "none"}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -268,17 +264,13 @@ export default function ArticleReactions({ articleId }: Props) {
 
             <span>Pas utile</span>
 
-            <span className="min-w-5 text-center">
-              {dislikes}
-            </span>
+            <span className="min-w-4 text-center">{dislikes}</span>
           </button>
         </div>
       </div>
 
       {error && (
-        <p className="text-red-600 text-sm mt-4">
-          {error}
-        </p>
+        <p className="text-accent text-sm mt-4">{error}</p>
       )}
     </section>
   );

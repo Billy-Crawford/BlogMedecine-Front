@@ -81,7 +81,7 @@ export default function CommentForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 mt-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         {/* =================================================
             TEXTAREA
@@ -91,24 +91,17 @@ export default function CommentForm({
           className="
             w-full
             border
-            border-zinc-300
-            dark:border-zinc-700
-            rounded-xl
-            p-4
-            shadow-sm
-            bg-white
-            dark:bg-zinc-900
-            text-zinc-900
-            dark:text-zinc-100
-            placeholder:text-zinc-400
-            dark:placeholder:text-zinc-500
+            border-border
+            bg-background
+            text-foreground
+            placeholder:text-muted-foreground
             focus:outline-none
-            focus:ring-2
-            focus:ring-zinc-900
-            dark:focus:ring-zinc-400
-            focus:border-transparent
+            focus:border-primary
             resize-none
             text-sm
+            sm:text-base
+            leading-relaxed
+            p-4
             transition-colors
           "
           rows={4}
@@ -128,11 +121,11 @@ export default function CommentForm({
         ================================================== */}
 
         <div className="flex justify-between mt-2">
-          <p className="text-xs text-zinc-400 dark:text-zinc-500">
+          <p className="font-mono text-[11px] text-muted-foreground">
             Votre commentaire sera visible publiquement.
           </p>
 
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">
+          <span className="font-mono text-[11px] text-muted-foreground">
             {texte.length}/300
           </span>
         </div>
@@ -143,9 +136,7 @@ export default function CommentForm({
       ==================================================== */}
 
       {error && (
-        <p className="text-red-600 dark:text-red-400 text-sm font-medium">
-          {error}
-        </p>
+        <p className="text-accent text-sm font-medium">{error}</p>
       )}
 
       {/* ===================================================
@@ -153,7 +144,7 @@ export default function CommentForm({
       ==================================================== */}
 
       {success && (
-        <p className="text-green-600 dark:text-green-400 text-sm font-medium">
+        <p className="text-primary text-sm font-medium">
           Commentaire publié !
         </p>
       )}
@@ -166,20 +157,21 @@ export default function CommentForm({
         type="submit"
         disabled={loading || !texte.trim()}
         className="
-          bg-zinc-900
-          dark:bg-zinc-100
-          text-white
-          dark:text-zinc-900
-          px-5
-          py-2.5
-          rounded-xl
-          text-sm
-          font-semibold
-          hover:bg-zinc-800
-          dark:hover:bg-zinc-200
-          disabled:opacity-50
+          inline-flex
+          items-center
+          gap-2
+          bg-primary
+          text-primary-foreground
+          px-6
+          py-3
+          font-mono
+          text-xs
+          uppercase
+          tracking-[0.14em]
+          hover:opacity-90
+          disabled:opacity-40
           disabled:cursor-not-allowed
-          transition-colors
+          transition-opacity
         "
       >
         {loading ? "Publication..." : "Publier le commentaire"}

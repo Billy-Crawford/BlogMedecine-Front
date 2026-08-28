@@ -20,7 +20,16 @@ export default function RequireAuth({ children }: RequireAuthProps) {
     }
   }, [router])
 
-  if (loading) return <p className="text-center mt-10">Chargement...</p>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          Chargement...
+        </p>
+      </div>
+    )
+  }
 
   return <>{children}</>
 }
+
