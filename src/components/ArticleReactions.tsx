@@ -20,7 +20,7 @@ export default function ArticleReactions({ articleId }: Props) {
   const [dislikes, setDislikes] = useState(0);
 
   const [loading, setLoading] = useState(false);
-  const [activeReaction, setActiveReaction] = useState
+  const [activeReaction, setActiveReaction] = useState<
     "like" | "dislike" | null
   >(null);
 
@@ -33,24 +33,19 @@ export default function ArticleReactions({ articleId }: Props) {
    */
   const fetchReactions = async () => {
     try {
-      const response = await axios.get<Reaction[]>(
-        `${API_URL}/reactions/`,
-        {
-          params: {
-            article: articleId,
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get<Reaction[]>(`${API_URL}/reactions/`, {
+        params: {
+          article: articleId,
+        },
+        withCredentials: true,
+      });
 
       const reactions = response.data;
 
-      setLikes(
-        reactions.filter((reaction) => reaction.type === "like").length
-      );
+      setLikes(reactions.filter((reaction) => reaction.type === "like").length);
 
       setDislikes(
-        reactions.filter((reaction) => reaction.type === "dislike").length
+        reactions.filter((reaction) => reaction.type === "dislike").length,
       );
     } catch (error) {
       console.error("Erreur chargement réactions :", error);
@@ -58,25 +53,19 @@ export default function ArticleReactions({ articleId }: Props) {
   };
 
   const fetchMyReaction = async () => {
-  try {
-    const response = await axios.get(
-      `${API_URL}/reactions/my-reaction/`,
-      {
+    try {
+      const response = await axios.get(`${API_URL}/reactions/my-reaction/`, {
         params: {
           article: articleId,
         },
         withCredentials: true,
-      }
-    );
+      });
 
-    setActiveReaction(response.data.type);
-  } catch (error) {
-    console.error(
-      "Erreur récupération réaction personnelle :",
-      error
-    );
-  }
-};
+      setActiveReaction(response.data.type);
+    } catch (error) {
+      console.error("Erreur récupération réaction personnelle :", error);
+    }
+  };
 
   useEffect(() => {
     fetchReactions();
@@ -101,7 +90,7 @@ export default function ArticleReactions({ articleId }: Props) {
         },
         {
           withCredentials: true,
-        }
+        },
       );
 
       /*
@@ -153,9 +142,7 @@ export default function ArticleReactions({ articleId }: Props) {
     } catch (error) {
       console.error("Erreur réaction :", error);
 
-      setError(
-        "Impossible d'enregistrer votre réaction."
-      );
+      setError("Impossible d'enregistrer votre réaction.");
     } finally {
       setLoading(false);
     }
@@ -269,10 +256,7 @@ export default function ArticleReactions({ articleId }: Props) {
         </div>
       </div>
 
-      {error && (
-        <p className="text-accent text-sm mt-4">{error}</p>
-      )}
+      {error && <p className="text-accent text-sm mt-4">{error}</p>}
     </section>
   );
 }
-
