@@ -54,11 +54,10 @@ export default function ArticleDetailPage() {
         <div className="flex flex-col items-center">
           <div
             className="
-              w-10
-              h-10
+              w-8
+              h-8
               border-2
-              border-zinc-900
-              dark:border-zinc-100
+              border-primary
               border-t-transparent
               rounded-full
               animate-spin
@@ -66,7 +65,7 @@ export default function ArticleDetailPage() {
             "
           />
 
-          <p className="text-zinc-500 dark:text-zinc-400 font-medium text-sm tracking-wide">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
             Chargement de l'article...
           </p>
         </div>
@@ -103,56 +102,24 @@ export default function ArticleDetailPage() {
     }
   };
 
+  const paragraphes = article.contenu.split("\n");
+
   return (
-    <article
-      className="
-        max-w-3xl
-        mx-auto
-        px-4
-        sm:px-6
-        py-12
-        md:py-20
-      "
-    >
+    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-4 md:py-8">
       {/* =====================================================
           EN-TÊTE DE L'ARTICLE
       ====================================================== */}
 
-      <header className="mb-10 text-center">
-        <div className="flex items-center justify-center gap-3 mb-6">
+      <header className="mb-10">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6">
           {article.categorie && (
-            <span
-              className="
-                bg-zinc-900
-                dark:bg-zinc-100
-                text-white
-                dark:text-zinc-900
-                text-xs
-                font-medium
-                uppercase
-                tracking-wider
-                px-3.5
-                py-1
-                rounded-full
-                shadow-2xs
-                transition-colors
-              "
-            >
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
               {article.categorie.nom}
             </span>
           )}
 
           {article.date_publication && (
-            <span
-              className="
-                text-zinc-400
-                dark:text-zinc-500
-                text-xs
-                uppercase
-                tracking-wider
-                font-medium
-              "
-            >
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
               {new Date(article.date_publication).toLocaleDateString("fr-FR", {
                 day: "numeric",
                 month: "long",
@@ -162,32 +129,24 @@ export default function ArticleDetailPage() {
           )}
         </div>
 
-        <h1
-          className="
-            text-3xl
-            sm:text-4xl
-            md:text-5xl
-            font-extrabold
-            text-zinc-900
-            dark:text-zinc-100
-            leading-tight
-            tracking-tight
-            mb-8
-          "
-        >
+        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl text-foreground leading-[1.1] mb-8">
           {article.titre}
         </h1>
 
-        <div
-          className="
-            w-16
-            h-0.5
-            bg-zinc-300
-            dark:bg-zinc-700
-            mx-auto
-            rounded-full
-          "
-        />
+        <svg
+          viewBox="0 0 400 20"
+          preserveAspectRatio="none"
+          className="w-24 h-3 text-primary/70"
+          aria-hidden="true"
+        >
+          <polyline
+            points="0,10 160,10 175,10 185,2 195,18 205,10 215,10 400,10"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
       </header>
 
       {/* =====================================================
@@ -196,21 +155,7 @@ export default function ArticleDetailPage() {
 
       {typeof article.image === "string" &&
         article.image.startsWith("/media") && (
-          <div
-            className="
-              mb-14
-              rounded-2xl
-              overflow-hidden
-              shadow-sm
-              border
-              border-zinc-200/80
-              dark:border-zinc-800
-              aspect-[16/10]
-              bg-zinc-100
-              dark:bg-zinc-800
-              transition-colors
-            "
-          >
+          <div className="mb-14 -mx-4 sm:mx-0 border-y sm:border border-border aspect-[16/10] bg-muted overflow-hidden">
             <Image
               src={article.image}
               alt={article.titre}
@@ -226,21 +171,20 @@ export default function ArticleDetailPage() {
           CONTENU DE L'ARTICLE
       ====================================================== */}
 
-      <div className="prose prose-lg max-w-none mb-20">
-        <div
-          className="
-            text-zinc-700
-            dark:text-zinc-300
-            leading-relaxed
-            space-y-6
-            text-base
-            sm:text-lg
-            font-normal
-          "
-        >
-          {article.contenu.split("\n").map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
+      <div className="max-w-none mb-16">
+        <div className="text-foreground/85 leading-relaxed space-y-6 text-base sm:text-lg">
+          {paragraphes.map((paragraph, index) =>
+            index === 0 ? (
+              <p
+                key={index}
+                className="first-letter:font-display first-letter:not-italic first-letter:text-6xl sm:first-letter:text-7xl first-letter:text-primary first-letter:float-left first-letter:leading-[0.8] first-letter:mr-3 first-letter:mt-1"
+              >
+                {paragraph}
+              </p>
+            ) : (
+              <p key={index}>{paragraph}</p>
+            ),
+          )}
         </div>
       </div>
 
@@ -250,200 +194,70 @@ export default function ArticleDetailPage() {
 
       <ArticleReactions articleId={article.id} />
 
-      <hr className="border-zinc-200 dark:border-zinc-800 my-16" />
+      <hr className="border-border my-16" />
 
       {/* =====================================================
           SECTION COMMENTAIRES
       ====================================================== */}
 
       <section className="mb-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2
-            className="
-              text-2xl
-              font-bold
-              text-zinc-900
-              dark:text-zinc-100
-              tracking-tight
-            "
-          >
+        <div className="flex items-baseline gap-3 mb-8">
+          <h2 className="font-display italic text-2xl text-foreground">
             Commentaires
           </h2>
 
-          <span
-            className="
-              bg-zinc-100
-              dark:bg-zinc-800
-              text-zinc-800
-              dark:text-zinc-200
-              px-3
-              py-1
-              rounded-full
-              text-xs
-              font-semibold
-              tracking-wider
-            "
-          >
-            {commentaires.length}
+          <span className="font-mono text-xs text-muted-foreground">
+            ({commentaires.length})
           </span>
         </div>
 
         {commentaires.length > 0 ? (
-          <ul className="space-y-4">
+          <ul className="space-y-6">
             {commentaires.map((comment, index) => (
               <li
                 key={comment.id ?? `comment-${index}`}
-                className="
-                  bg-[#FAFAFC]
-                  dark:bg-zinc-900
-                  p-6
-                  rounded-2xl
-                  border
-                  border-zinc-200/70
-                  dark:border-zinc-800
-                  shadow-2xs
-                  transition-colors
-                "
+                className="border-l-2 border-border pl-5"
               >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="
-                      bg-zinc-900
-                      dark:bg-zinc-100
-                      text-white
-                      dark:text-zinc-900
-                      rounded-xl
-                      p-2.5
-                      mt-0.5
-                      shadow-2xs
-                      transition-colors
-                    "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                <p className="text-foreground/85 text-sm sm:text-base leading-relaxed break-words">
+                  {comment.texte}
+                </p>
+
+                <div className="flex items-center justify-between gap-4 mt-3">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                    {comment.date_creation
+                      ? new Date(comment.date_creation).toLocaleString(
+                          "fr-FR",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          },
+                        )
+                      : "Date inconnue"}
+                  </p>
+
+                  {comment.can_delete && (
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteComment(comment.id)}
+                      className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent hover:underline underline-offset-4 transition"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                      />
-                    </svg>
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className="
-                        text-zinc-800
-                        dark:text-zinc-200
-                        text-sm
-                        sm:text-base
-                        leading-relaxed
-                        break-words
-                      "
-                    >
-                      {comment.texte}
-                    </p>
-
-                    <div className="flex items-center justify-between gap-4 mt-3">
-                      <p
-                        className="
-                          text-xs
-                          text-zinc-400
-                          dark:text-zinc-500
-                          font-medium
-                        "
-                      >
-                        Posté le{" "}
-                        {comment.date_creation
-                          ? new Date(
-                              comment.date_creation,
-                            ).toLocaleString("fr-FR", {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })
-                          : "Date inconnue"}
-                      </p>
-
-                      {comment.can_delete && (
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteComment(comment.id)}
-                          className="
-                            text-xs
-                            font-semibold
-                            text-red-600
-                            dark:text-red-400
-                            hover:text-red-700
-                            dark:hover:text-red-300
-                            hover:underline
-                            transition
-                          "
-                        >
-                          Supprimer
-                        </button>
-                      )}
-                    </div>
-                  </div>
+                      Supprimer
+                    </button>
+                  )}
                 </div>
               </li>
             ))}
           </ul>
         ) : (
-          <div
-            className="
-              bg-[#FAFAFC]
-              dark:bg-zinc-900
-              border
-              border-zinc-200
-              dark:border-zinc-800
-              rounded-2xl
-              p-10
-              text-center
-              transition-colors
-            "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="
-                h-10
-                w-10
-                mx-auto
-                text-zinc-400
-                dark:text-zinc-500
-                mb-3
-              "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-              />
-            </svg>
-
-            <p
-              className="
-                text-zinc-800
-                dark:text-zinc-200
-                font-medium
-                text-sm
-              "
-            >
+          <div className="border border-border py-10 text-center">
+            <p className="font-display italic text-foreground/80">
               Aucun commentaire pour le moment.
             </p>
 
-            <p className="text-zinc-500 dark:text-zinc-400 text-xs mt-1">
+            <p className="text-muted-foreground text-xs mt-1">
               Soyez le premier à réagir à cet article.
             </p>
           </div>
@@ -454,30 +268,8 @@ export default function ArticleDetailPage() {
           FORMULAIRE DE COMMENTAIRE
       ====================================================== */}
 
-      <section
-        className="
-          bg-[#FAFAFC]
-          dark:bg-zinc-900
-          rounded-2xl
-          p-6
-          sm:p-8
-          border
-          border-zinc-200/80
-          dark:border-zinc-800
-          shadow-2xs
-          transition-colors
-        "
-      >
-        <h3
-          className="
-            text-lg
-            font-bold
-            text-zinc-900
-            dark:text-zinc-100
-            mb-6
-            tracking-tight
-          "
-        >
+      <section className="border-t border-border pt-10">
+        <h3 className="font-display italic text-xl text-foreground mb-6">
           Laisser un commentaire
         </h3>
 
@@ -489,4 +281,3 @@ export default function ArticleDetailPage() {
     </article>
   );
 }
-

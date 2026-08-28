@@ -32,25 +32,21 @@ export default function CategoriesPage() {
   }, []);
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
+    <section className="max-w-3xl mx-auto px-4 sm:px-6 py-4 md:py-8">
       {/* =====================================================
           EN-TÊTE
       ====================================================== */}
 
-      <div className="mb-10">
-        <h1
-          className="
-            text-3xl
-            sm:text-4xl
-            font-extrabold
-            text-zinc-950
-            dark:text-zinc-100
-          "
-        >
+      <div className="mb-12 pb-8 border-b border-border">
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-3">
+          Sommaire thématique
+        </p>
+
+        <h1 className="font-display italic text-4xl sm:text-5xl text-foreground">
           Catégories
         </h1>
 
-        <p className="mt-2 text-zinc-500 dark:text-zinc-400">
+        <p className="mt-3 text-muted-foreground">
           Explorez nos articles par thématique.
         </p>
       </div>
@@ -66,15 +62,14 @@ export default function CategoriesPage() {
               w-5
               h-5
               border-2
-              border-zinc-900
-              dark:border-zinc-100
+              border-primary
               border-t-transparent
               rounded-full
               animate-spin
             "
           />
 
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             Chargement des catégories...
           </p>
         </div>
@@ -85,21 +80,8 @@ export default function CategoriesPage() {
       ====================================================== */}
 
       {!loading && error && (
-        <div
-          className="
-            bg-red-50
-            dark:bg-red-950/40
-            border
-            border-red-200
-            dark:border-red-900
-            text-red-700
-            dark:text-red-300
-            rounded-xl
-            px-4
-            py-3
-          "
-        >
-          {error}
+        <div className="border-l-2 border-accent bg-card py-4 pl-5 pr-4">
+          <p className="text-accent text-sm">{error}</p>
         </div>
       )}
 
@@ -108,19 +90,8 @@ export default function CategoriesPage() {
       ====================================================== */}
 
       {!loading && !error && categories.length === 0 && (
-        <div
-          className="
-            bg-zinc-50
-            dark:bg-zinc-900
-            border
-            border-zinc-200
-            dark:border-zinc-800
-            rounded-2xl
-            p-10
-            text-center
-          "
-        >
-          <p className="text-zinc-600 dark:text-zinc-300">
+        <div className="border border-border py-14 text-center">
+          <p className="font-display italic text-foreground/80">
             Aucune catégorie disponible pour le moment.
           </p>
         </div>
@@ -131,67 +102,35 @@ export default function CategoriesPage() {
       ====================================================== */}
 
       {!loading && !error && categories.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {categories.map((categorie) => (
-            <Link
-              key={categorie.id}
-              href={`/categories/${categorie.slug}`}
-              className="
-                group
-                bg-white
-                dark:bg-zinc-900
-                border
-                border-zinc-200
-                dark:border-zinc-800
-                rounded-2xl
-                p-6
-                hover:border-zinc-400
-                dark:hover:border-zinc-700
-                hover:shadow-md
-                dark:hover:shadow-black/30
-                transition-all
-                duration-300
-              "
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2
-                    className="
-                      text-lg
-                      font-bold
-                      text-zinc-900
-                      dark:text-zinc-100
-                      group-hover:text-zinc-700
-                      dark:group-hover:text-zinc-300
-                      transition-colors
-                    "
-                  >
+        <ul className="divide-y divide-border border-t border-b border-border">
+          {categories.map((categorie, index) => (
+            <li key={categorie.id}>
+              <Link
+                href={`/categories/${categorie.slug}`}
+                className="group flex items-center gap-5 sm:gap-8 py-6 hover:bg-card/60 transition-colors -mx-1 px-1"
+              >
+                <span className="font-mono text-xs text-muted-foreground w-7 flex-shrink-0">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <div className="flex-1 min-w-0">
+                  <h2 className="font-display text-xl sm:text-2xl text-foreground group-hover:text-primary transition-colors">
                     {categorie.nom}
                   </h2>
 
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                  <p className="text-sm text-muted-foreground mt-1">
                     Voir les articles
                   </p>
                 </div>
 
-                <span
-                  className="
-                    text-zinc-400
-                    dark:text-zinc-500
-                    group-hover:text-zinc-900
-                    dark:group-hover:text-zinc-100
-                    transition-colors
-                    text-xl
-                  "
-                >
+                <span className="font-mono text-lg text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0">
                   →
                 </span>
-              </div>
-            </Link>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </section>
   );
 }
-
