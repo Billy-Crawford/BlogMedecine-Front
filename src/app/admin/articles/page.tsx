@@ -60,42 +60,19 @@ export default function AdminArticlesPage() {
 
   return (
     <RequireAuth>
-      <div className="space-y-8">
+      <div className="space-y-12">
         {/* En-tête */}
-        <div
-          className="
-            flex
-            flex-col
-            sm:flex-row
-            sm:items-center
-            sm:justify-between
-            gap-4
-          "
-        >
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div>
-            <h1
-              className="
-                text-2xl
-                sm:text-3xl
-                font-extrabold
-                text-zinc-950
-                dark:text-zinc-100
-                tracking-tight
-                transition-colors
-              "
-            >
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+              Espace de gestion
+            </p>
+
+            <h1 className="font-display italic text-3xl sm:text-4xl text-foreground">
               Gestion des articles
             </h1>
 
-            <p
-              className="
-                text-zinc-500
-                dark:text-zinc-400
-                text-sm
-                mt-1
-                transition-colors
-              "
-            >
+            <p className="text-muted-foreground text-sm mt-2">
               Liste et administration de l&apos;ensemble des publications du
               blog.
             </p>
@@ -103,261 +80,89 @@ export default function AdminArticlesPage() {
 
           <Link
             href="/admin/articles/nouveau"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              gap-2
-              bg-zinc-900
-              dark:bg-zinc-100
-              hover:bg-zinc-800
-              dark:hover:bg-zinc-200
-              text-white
-              dark:text-zinc-900
-              font-medium
-              text-sm
-              py-2.5
-              px-4
-              rounded-xl
-              shadow-2xs
-              hover:shadow-md
-              transition-all
-              shrink-0
-            "
+            className="inline-flex items-center justify-center bg-primary text-primary-foreground font-mono text-xs uppercase tracking-[0.14em] py-3 px-6 hover:opacity-90 transition-opacity shrink-0"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-
-            Nouvel article
+            + Nouvel article
           </Link>
         </div>
 
         {/* Chargement */}
         {loading ? (
           <div className="flex items-center gap-3 py-12">
-            <div
-              className="
-                w-5
-                h-5
-                border-2
-                border-zinc-900
-                dark:border-zinc-100
-                border-t-transparent
-                rounded-full
-                animate-spin
-              "
-            />
+            <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
 
-            <p
-              className="
-                text-zinc-500
-                dark:text-zinc-400
-                text-sm
-                font-medium
-              "
-            >
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
               Chargement des articles...
             </p>
           </div>
         ) : articles.length === 0 ? (
           /* Aucun article */
-          <div
-            className="
-              bg-[#FAFAFC]
-              dark:bg-zinc-900
-              border
-              border-zinc-200
-              dark:border-zinc-800
-              rounded-2xl
-              p-12
-              text-center
-              transition-colors
-            "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="
-                h-12
-                w-12
-                mx-auto
-                text-zinc-400
-                dark:text-zinc-500
-                mb-4
-              "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-              />
-            </svg>
-
-            <p
-              className="
-                text-zinc-900
-                dark:text-zinc-100
-                font-semibold
-                text-lg
-              "
-            >
+          <div className="border border-border py-16 text-center">
+            <p className="font-display italic text-xl text-foreground mb-2">
               Aucun article pour l&apos;instant.
             </p>
 
-            <p
-              className="
-                text-zinc-500
-                dark:text-zinc-400
-                text-sm
-                mt-1
-              "
-            >
+            <p className="text-muted-foreground text-sm">
               Commencez par créer votre première publication.
             </p>
           </div>
         ) : (
           /* Tableau */
-          <div
-            className="
-              bg-white
-              dark:bg-zinc-900
-              border
-              border-zinc-200/80
-              dark:border-zinc-800
-              rounded-2xl
-              shadow-2xs
-              dark:shadow-none
-              overflow-hidden
-              transition-colors
-            "
-          >
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr
-                    className="
-                      bg-[#FAFAFC]
-                      dark:bg-zinc-800/70
-                      border-b
-                      border-zinc-200
-                      dark:border-zinc-800
-                      text-xs
-                      font-semibold
-                      uppercase
-                      tracking-wider
-                      text-zinc-500
-                      dark:text-zinc-400
-                      transition-colors
-                    "
-                  >
-                    <th className="px-6 py-4">Titre</th>
-                    <th className="px-6 py-4">Catégorie</th>
-                    <th className="px-6 py-4">Statut</th>
-                    <th className="px-6 py-4">Publication</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
+          <div className="overflow-x-auto border-t border-border">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="py-4 pr-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground font-normal">
+                    Titre
+                  </th>
+                  <th className="py-4 pr-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground font-normal">
+                    Catégorie
+                  </th>
+                  <th className="py-4 pr-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground font-normal">
+                    Statut
+                  </th>
+                  <th className="py-4 pr-6 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground font-normal">
+                    Publication
+                  </th>
+                  <th className="py-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground text-right font-normal">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
 
-                <tbody
-                  className="
-                    divide-y
-                    divide-zinc-100
-                    dark:divide-zinc-800
-                    text-sm
-                  "
-                >
-                  {articles.map((article) => (
+              <tbody className="divide-y divide-border text-sm">
+                {articles.map((article) => {
+                  const isPublished = article.statut === "Publié";
+
+                  return (
                     <tr
                       key={article.id}
-                      className="
-                        hover:bg-zinc-50/60
-                        dark:hover:bg-zinc-800/50
-                        transition-colors
-                      "
+                      className="hover:bg-card/60 transition-colors"
                     >
                       {/* Titre */}
-                      <td
-                        className="
-                          px-6
-                          py-4
-                          font-semibold
-                          text-zinc-900
-                          dark:text-zinc-100
-                          max-w-xs
-                          truncate
-                        "
-                      >
+                      <td className="py-4 pr-6 text-foreground max-w-xs truncate">
                         {article.titre}
                       </td>
 
                       {/* Catégorie */}
-                      <td
-                        className="
-                          px-6
-                          py-4
-                          text-zinc-600
-                          dark:text-zinc-400
-                        "
-                      >
-                        <span
-                          className="
-                            inline-flex
-                            items-center
-                            px-2.5
-                            py-1
-                            rounded-md
-                            text-xs
-                            font-medium
-                            bg-zinc-100
-                            dark:bg-zinc-800
-                            text-zinc-800
-                            dark:text-zinc-200
-                            transition-colors
-                          "
-                        >
-                          {article.categorie?.nom || "Non catégorisé"}
-                        </span>
+                      <td className="py-4 pr-6 text-muted-foreground">
+                        {article.categorie?.nom || "Non catégorisé"}
                       </td>
 
                       {/* Statut */}
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
-                            article.statut === "Publié"
-                              ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-900"
-                              : "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-900"
-                          }`}
-                        >
+                      <td className="py-4 pr-6">
+                        <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              isPublished ? "bg-primary" : "bg-gold"
+                            }`}
+                          />
                           {article.statut}
                         </span>
                       </td>
 
                       {/* Date */}
-                      <td
-                        className="
-                          px-6
-                          py-4
-                          text-zinc-500
-                          dark:text-zinc-400
-                          font-medium
-                          text-xs
-                        "
-                      >
+                      <td className="py-4 pr-6 font-mono text-xs text-muted-foreground">
                         {article.date_publication
                           ? new Date(
                               article.date_publication,
@@ -370,21 +175,10 @@ export default function AdminArticlesPage() {
                       </td>
 
                       {/* Actions */}
-                      <td className="px-6 py-4 text-right space-x-4">
+                      <td className="py-4 text-right space-x-5">
                         <Link
                           href={`/admin/articles/${article.id}/modifier`}
-                          className="
-                            font-medium
-                            text-zinc-900
-                            dark:text-zinc-100
-                            hover:text-zinc-600
-                            dark:hover:text-zinc-300
-                            hover:underline
-                            text-xs
-                            uppercase
-                            tracking-wider
-                            transition-colors
-                          "
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-primary transition-colors"
                         >
                           Modifier
                         </Link>
@@ -392,28 +186,16 @@ export default function AdminArticlesPage() {
                         <button
                           type="button"
                           onClick={() => handleDelete(article.id)}
-                          className="
-                            font-medium
-                            text-red-600
-                            dark:text-red-400
-                            hover:text-red-700
-                            dark:hover:text-red-300
-                            hover:underline
-                            text-xs
-                            uppercase
-                            tracking-wider
-                            cursor-pointer
-                            transition-colors
-                          "
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-accent cursor-pointer transition-colors"
                         >
                           Supprimer
                         </button>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

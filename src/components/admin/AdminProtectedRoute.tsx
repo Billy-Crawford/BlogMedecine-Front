@@ -22,10 +22,17 @@ const AdminProtectedRoute = ({ children }: AdminProtectedRouteProps) => {
   }, [])
 
   if (loading) {
-    return <div>Chargement...</div>
+    return (
+      <div className="flex items-center justify-center py-20">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          Chargement...
+        </p>
+      </div>
+    )
   }
 
   return <>{children}</>
 }
 
 export default AdminProtectedRoute
+

@@ -6,6 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "@/app/globals.css";
 
+const NAV_ITEMS = [
+  { href: "/admin", label: "Tableau de bord" },
+  { href: "/admin/articles", label: "Articles" },
+  { href: "/admin/categories", label: "Catégories" },
+  { href: "/admin/commentaires", label: "Commentaires" },
+];
+
 export default function AdminLayout({
   children,
 }: {
@@ -18,6 +25,9 @@ export default function AdminLayout({
     return <>{children}</>;
   }
 
+  const isActive = (href: string) =>
+    href === "/admin" ? pathname === "/admin" : pathname?.startsWith(href);
+
   return (
     <div
       className="
@@ -25,14 +35,10 @@ export default function AdminLayout({
         flex
         flex-col
         md:flex-row
-        bg-[#FAFAFC]
-        dark:bg-zinc-950
-        text-zinc-900
-        dark:text-zinc-100
-        selection:bg-zinc-900
-        selection:text-white
-        dark:selection:bg-zinc-100
-        dark:selection:text-zinc-900
+        bg-background
+        text-foreground
+        selection:bg-primary
+        selection:text-primary-foreground
         transition-colors
         duration-300
       "
@@ -41,14 +47,12 @@ export default function AdminLayout({
       <aside
         className="
           w-full
-          md:w-72
-          bg-white
-          dark:bg-zinc-900
+          md:w-64
+          bg-card
           border-b
           md:border-b-0
           md:border-r
-          border-zinc-200/80
-          dark:border-zinc-800
+          border-border
           p-6
           md:p-8
           flex
@@ -59,185 +63,61 @@ export default function AdminLayout({
           duration-300
         "
       >
-        <div className="space-y-8">
+        <div className="space-y-10">
           {/* Logo / titre */}
-          <div className="flex items-center gap-3">
-            <div
-              className="
-                w-8
-                h-8
-                rounded-lg
-                bg-zinc-900
-                dark:bg-zinc-100
-                text-white
-                dark:text-zinc-900
-                flex
-                items-center
-                justify-center
-                font-bold
-                text-sm
-                shadow-2xs
-                transition-colors
-              "
-            >
-              A
-            </div>
-
-            <span
-              className="
-                font-extrabold
-                text-zinc-900
-                dark:text-zinc-100
-                tracking-tight
-                text-lg
-                transition-colors
-              "
-            >
-              Admin Panel
+          <div>
+            <span className="font-display italic text-2xl text-foreground">
+              Robomed
             </span>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+              Espace de gestion
+            </p>
           </div>
 
           {/* Navigation */}
-          <nav className="flex flex-col space-y-1.5">
-            <Link
-              href="/admin"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-2.5
-                rounded-xl
-                text-sm
-                font-medium
-                text-zinc-600
-                dark:text-zinc-400
-                hover:text-zinc-900
-                dark:hover:text-zinc-100
-                hover:bg-zinc-100/80
-                dark:hover:bg-zinc-800
-                transition-all
-              "
-            >
-              Dashboard
-            </Link>
+          <nav className="flex flex-col gap-1">
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item.href);
 
-            <Link
-              href="/admin/articles"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-2.5
-                rounded-xl
-                text-sm
-                font-medium
-                text-zinc-600
-                dark:text-zinc-400
-                hover:text-zinc-900
-                dark:hover:text-zinc-100
-                hover:bg-zinc-100/80
-                dark:hover:bg-zinc-800
-                transition-all
-              "
-            >
-              Articles
-            </Link>
-
-            <Link
-              href="/admin/categories"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-2.5
-                rounded-xl
-                text-sm
-                font-medium
-                text-zinc-600
-                dark:text-zinc-400
-                hover:text-zinc-900
-                dark:hover:text-zinc-100
-                hover:bg-zinc-100/80
-                dark:hover:bg-zinc-800
-                transition-all
-              "
-            >
-              Categories
-            </Link>
-
-            <Link
-              href="/admin/commentaires"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-2.5
-                rounded-xl
-                text-sm
-                font-medium
-                text-zinc-600
-                dark:text-zinc-400
-                hover:text-zinc-900
-                dark:hover:text-zinc-100
-                hover:bg-zinc-100/80
-                dark:hover:bg-zinc-800
-                transition-all
-              "
-            >
-              Commentaires
-            </Link>
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`
+                    px-4 py-3
+                    text-sm
+                    border-l-2
+                    transition-colors
+                    ${
+                      active
+                        ? "border-primary bg-muted text-foreground font-medium"
+                        : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                    }
+                  `}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
         {/* Retour vers le site public */}
-        <div
-          className="
-            hidden
-            md:block
-            pt-6
-            border-t
-            border-zinc-100
-            dark:border-zinc-800
-          "
-        >
+        <div className="hidden md:block pt-8 mt-8 border-t border-border">
           <Link
             href="/"
-            className="
-              text-xs
-              font-medium
-              text-zinc-400
-              dark:text-zinc-500
-              hover:text-zinc-900
-              dark:hover:text-zinc-100
-              transition-colors
-              flex
-              items-center
-              gap-2
-            "
+            className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-primary transition-colors"
           >
-            ← Voir le site public
+            &larr; Voir le site public
           </Link>
         </div>
       </aside>
 
       {/* Main content */}
-      <main
-        className="
-          flex-1
-          p-6
-          sm:p-10
-          md:p-12
-          overflow-y-auto
-          transition-colors
-          duration-300
-        "
-      >
-        <div className="max-w-6xl mx-auto">{children}</div>
+      <main className="flex-1 p-6 sm:p-10 lg:p-14 overflow-y-auto transition-colors duration-300">
+        <div className="max-w-5xl mx-auto">{children}</div>
       </main>
     </div>
   );
 }
+

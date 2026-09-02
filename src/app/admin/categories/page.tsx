@@ -57,15 +57,18 @@ export default function AdminCategoriesPage() {
 
   return (
     <RequireAuth>
-      <div className="max-w-3xl mx-auto py-8">
-
+      <div className="space-y-12">
         {/* En-tête */}
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 dark:text-zinc-100 tracking-tight">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+            Espace de gestion
+          </p>
+
+          <h1 className="font-display italic text-3xl sm:text-4xl text-foreground">
             Gestion des catégories
           </h1>
 
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-2">
             Organisez les thématiques et rubriques de vos articles.
           </p>
         </div>
@@ -74,70 +77,27 @@ export default function AdminCategoriesPage() {
             FORMULAIRE DE CRÉATION
         ====================================================== */}
 
-        <div className="bg-[#FAFAFC] dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl p-6 shadow-2xs mb-8">
-
-          <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
+        <div className="border-b border-border pb-10">
+          <label className="block font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-4">
             Ajouter une nouvelle catégorie
           </label>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
             <input
               type="text"
               placeholder="Ex: Cardiologie, Pédiatrie..."
               value={newNom}
               onChange={(e) => setNewNom(e.target.value)}
-              className="
-                flex-grow
-                bg-white
-                dark:bg-zinc-950
-                border
-                border-zinc-200
-                dark:border-zinc-700
-                rounded-xl
-                px-4
-                py-3
-                text-zinc-900
-                dark:text-zinc-100
-                text-sm
-                placeholder:text-zinc-400
-                dark:placeholder:text-zinc-500
-                focus:outline-none
-                focus:ring-2
-                focus:ring-zinc-900/20
-                dark:focus:ring-zinc-100/20
-                focus:border-zinc-900
-                dark:focus:border-zinc-100
-                transition-all
-              "
+              className="flex-grow bg-transparent border-0 border-b border-border px-0 py-2.5 text-foreground text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary transition-colors"
             />
 
             <button
               type="button"
               onClick={handleCreate}
-              className="
-                bg-zinc-900
-                dark:bg-zinc-100
-                hover:bg-zinc-800
-                dark:hover:bg-white
-                text-white
-                dark:text-zinc-900
-                font-medium
-                text-sm
-                py-3
-                px-6
-                rounded-xl
-                shadow-2xs
-                hover:shadow-md
-                transition-all
-                duration-200
-                cursor-pointer
-                shrink-0
-              "
+              className="bg-primary text-primary-foreground font-mono text-xs uppercase tracking-[0.14em] py-3 px-6 hover:opacity-90 transition-opacity cursor-pointer shrink-0"
             >
               Ajouter
             </button>
-
           </div>
         </div>
 
@@ -145,146 +105,65 @@ export default function AdminCategoriesPage() {
             LISTE DES CATÉGORIES
         ====================================================== */}
 
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl shadow-2xs overflow-hidden">
-
-          {/* En-tête */}
-          <div className="px-6 py-4 bg-[#FAFAFC] dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-4">
             Liste des catégories ({categories.length})
-          </div>
+          </p>
 
           {/* Aucune catégorie */}
           {categories.length === 0 ? (
-
-            <div className="p-12 text-center text-zinc-500 dark:text-zinc-400 text-sm">
-              Aucune catégorie enregistrée pour le moment.
+            <div className="border border-border py-14 text-center">
+              <p className="font-display italic text-foreground/80">
+                Aucune catégorie enregistrée pour le moment.
+              </p>
             </div>
-
           ) : (
-
-            <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
-
+            <ul className="divide-y divide-border border-t border-b border-border">
               {categories.map((cat) => (
-
-                <li
-                  key={cat.id}
-                  className="
-                    px-6
-                    py-4
-                    flex
-                    items-center
-                    justify-between
-                    hover:bg-zinc-50/60
-                    dark:hover:bg-zinc-800/50
-                    transition-colors
-                  "
-                >
-
+                <li key={cat.id} className="px-1 py-5">
                   {/* Mode édition */}
                   {editingId === cat.id ? (
-
-                    <div className="flex items-center gap-3 w-full">
-
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
                       <input
                         type="text"
                         value={editingNom}
                         onChange={(e) => setEditingNom(e.target.value)}
-                        className="
-                          flex-grow
-                          bg-white
-                          dark:bg-zinc-950
-                          border
-                          border-zinc-200
-                          dark:border-zinc-700
-                          rounded-xl
-                          px-4
-                          py-2
-                          text-zinc-900
-                          dark:text-zinc-100
-                          text-sm
-                          focus:outline-none
-                          focus:ring-2
-                          focus:ring-zinc-900/20
-                          dark:focus:ring-zinc-100/20
-                          focus:border-zinc-900
-                          dark:focus:border-zinc-100
-                        "
+                        className="flex-grow bg-transparent border-0 border-b border-primary px-0 py-2 text-foreground text-sm focus:outline-none"
                       />
 
-                      <button
-                        type="button"
-                        onClick={handleUpdate}
-                        className="
-                          bg-emerald-50
-                          dark:bg-emerald-950/40
-                          text-emerald-700
-                          dark:text-emerald-400
-                          hover:bg-emerald-100
-                          dark:hover:bg-emerald-950/70
-                          px-3.5
-                          py-2
-                          rounded-xl
-                          text-xs
-                          font-semibold
-                          transition-colors
-                          cursor-pointer
-                        "
-                      >
-                        Enregistrer
-                      </button>
+                      <div className="flex items-center gap-5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={handleUpdate}
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-primary hover:underline underline-offset-4 cursor-pointer"
+                        >
+                          Enregistrer
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => setEditingId(null)}
-                        className="
-                          bg-zinc-100
-                          dark:bg-zinc-800
-                          text-zinc-600
-                          dark:text-zinc-300
-                          hover:bg-zinc-200
-                          dark:hover:bg-zinc-700
-                          px-3.5
-                          py-2
-                          rounded-xl
-                          text-xs
-                          font-semibold
-                          transition-colors
-                          cursor-pointer
-                        "
-                      >
-                        Annuler
-                      </button>
-
+                        <button
+                          type="button"
+                          onClick={() => setEditingId(null)}
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
+                        >
+                          Annuler
+                        </button>
+                      </div>
                     </div>
-
                   ) : (
-
                     /* Mode normal */
-                    <>
-                      <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-foreground text-sm">
                         {cat.nom}
                       </span>
 
-                      <div className="flex items-center gap-4">
-
+                      <div className="flex items-center gap-5">
                         <button
                           type="button"
                           onClick={() => {
                             setEditingId(cat.id);
                             setEditingNom(cat.nom);
                           }}
-                          className="
-                            font-medium
-                            text-zinc-900
-                            dark:text-zinc-200
-                            hover:text-zinc-600
-                            dark:hover:text-zinc-400
-                            hover:underline
-                            text-xs
-                            uppercase
-                            tracking-wider
-                            cursor-pointer
-                            transition-colors
-                          "
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-primary cursor-pointer transition-colors"
                         >
                           Modifier
                         </button>
@@ -292,30 +171,15 @@ export default function AdminCategoriesPage() {
                         <button
                           type="button"
                           onClick={() => handleDelete(cat.id)}
-                          className="
-                            font-medium
-                            text-red-600
-                            dark:text-red-400
-                            hover:text-red-700
-                            dark:hover:text-red-300
-                            hover:underline
-                            text-xs
-                            uppercase
-                            tracking-wider
-                            cursor-pointer
-                            transition-colors
-                          "
+                          className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground hover:text-accent cursor-pointer transition-colors"
                         >
                           Supprimer
                         </button>
-
                       </div>
-                    </>
+                    </div>
                   )}
-
                 </li>
               ))}
-
             </ul>
           )}
         </div>
