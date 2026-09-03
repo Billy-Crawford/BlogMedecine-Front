@@ -131,19 +131,29 @@ export default function CreateArticlePage() {
             <select
               value={categorieId ?? ""}
               onChange={(e) => setCategorieId(Number(e.target.value))}
-              className="w-full bg-transparent border-0 border-b border-border px-0 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-card border border-border rounded-md px-3 py-2.5 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
               required
             >
-              <option value="" disabled>
+              <option value="" disabled className="bg-card text-muted-foreground">
                 Choisir une catégorie
               </option>
 
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option
+                  key={cat.id}
+                  value={cat.id}
+                  className="bg-card text-foreground"
+                >
                   {cat.nom}
                 </option>
               ))}
             </select>
+
+            {categories.length === 0 && (
+              <p className="font-mono text-[11px] text-muted-foreground mt-2">
+                Aucune catégorie disponible pour le moment.
+              </p>
+            )}
           </div>
 
           {/* Contenu */}
@@ -207,4 +217,3 @@ export default function CreateArticlePage() {
     </RequireAuth>
   );
 }
-
